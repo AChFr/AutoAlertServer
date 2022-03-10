@@ -6,8 +6,8 @@ const alertSchema = new Schema({
     name: {
         type: String,
         required: true,
-        enum: ['CAMBIO DE ACEITE', 'CAMBIO PASTILLAS DE FRENO', 'ENGRASADO', 'REVISIÓN GENERAL',
-            'HINCHADO DE RUEDAS', 'CAMBIO DE LIMPIA PARABRISAS', 'LIMPIEZA', 'SUSPENSIONES']
+        enum: ['Oil change', 'Brake pads change', 'Lubrication', 'Technical checkup',
+            'Tire pressure check', 'Wipers change', 'Clean up', 'Suspension check', 'ITV']
     },
 
     initializedAt: {

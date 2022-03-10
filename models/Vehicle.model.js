@@ -17,6 +17,10 @@ const vehicleSchema = new Schema(
             type: String,
 
         },
+        kmMonth: {
+            type: Number,
+            // required: true
+        },
         purchaseDate: {
             type: Date
         },

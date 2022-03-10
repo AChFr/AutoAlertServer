@@ -20,15 +20,15 @@ router.post("/create", isAuthenticated, (req, res) => {
 
 router.get('/allAlerts', isAuthenticated, (req, res, next) => {
 
-    let allPromise = []
+    let allPromises = []
 
     Vehicle
         .find({ owner: req.payload._id })
         .then(result => {
             result.forEach(elm => {
-                allPromise.push(Alert.find({ vehicle: elm._id }).populate("vehicle"))
+                allPromises.push(Alert.find({ vehicle: elm._id }).populate("vehicle"))
             })
-            return Promise.all(allPromise)
+            return Promise.all(allPromises)
         })
         .then(allAlerts => res.json(allAlerts.flat()))
         .catch(err => res.status(500).json(err))
@@ -42,8 +42,14 @@ router.get('/vehicle/:vehicle_id', isAuthenticated, (req, res, next) => {
     const { vehicle_id } = req.params
 
     Alert
-        .find({ vehicle: vehicle_id })
-        .then(result => res.json(result))
+        .find({ vehicle: vehicle_id }).sort({ dueAt: 1 })
+        .populate("vehicle")
+        .then(result => {
+
+            console.log(result)
+            res.json(result)
+        }
+        )
         .catch(err => res.status(500).json(err))
 })
 /////////// L I S T  O N E   ////////

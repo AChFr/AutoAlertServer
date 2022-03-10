@@ -3,7 +3,7 @@ const router = require("express").Router();
 const { isAuthenticated } = require('./../middlewares/jwt.middleware')
 
 const Vehicle = require("../models/Vehicle.model")
-
+const Alert = require("../models/Alert.model")
 ////////////////// L I S T  A L L ////////////////////////
 
 router.get('/allvehicles', isAuthenticated, (req, res, next) => {
@@ -48,12 +48,28 @@ router.put("/:vehicle_id", isAuthenticated, (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
+
+///////////////// D E L E T E   O N E /////////////////////////
+//////// A N D  T H E   A S S O C I A T E D  A L E R T S //////
+
 router.delete("/:vehicle_id", isAuthenticated, (req, res, next) => {
 
     const { vehicle_id } = req.params
 
-    Vehicle
-        .findByIdAndDelete(vehicle_id)
+    let allPromises = []
+
+    Alert
+        .find({ vehicle: vehicle_id })
+        .then(result => {
+
+            result.forEach(elm => {
+                allPromises.push(Alert.findByIdAndDelete(elm._id))
+            })
+            return Promise.all(allPromises)
+        })
+        .then((result) => {
+            return Vehicle.findByIdAndDelete(vehicle_id)
+        })
         .then(result => res.status(200).json(result))
         .catch(err => res.status(500).json(err))
 

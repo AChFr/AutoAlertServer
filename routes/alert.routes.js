@@ -2,7 +2,8 @@ const express = require("express")
 const router = require("express").Router();
 const { isAuthenticated } = require('./../middlewares/jwt.middleware')
 const Vehicle = require("../models/Vehicle.model")
-const Alert = require("../models/Alert.model")
+const Alert = require("../models/Alert.model");
+const transporter = require("../config/transporter.config");
 
 
 ///////////////// C R E A T E  O N E /////////////////////////
@@ -90,6 +91,26 @@ router.delete("/:alert_id", isAuthenticated, (req, res, next) => {
         .catch(err => res.status(500).json(err))
 
 })
+
+/////////  S E N D  A N  E M A I L//////////
+
+
+router.post("/contact", (req, res) => {
+
+    const { text, email } = req.body
+
+    transporter.sendMail({
+        from: "imdbprojectteam@gmail.com",
+        to: email,
+        subject: `Some one wants to contact you!`,
+        text: ` SomeOne with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]`,
+        html: "<p>" + `SomeOne with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]` + "</p>"
+    })
+
+    res.status(200)
+
+})
+
 
 
 module.exports = router

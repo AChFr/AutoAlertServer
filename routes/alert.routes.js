@@ -112,7 +112,12 @@ router.post("/contact", (req, res) => {
             text: ` Someone with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]`,
             html: "<p>" + `SomeOne with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]` + "</p>"
         })
+        .then(() => res.status(200))
+        .catch(err => res.status(500).json(err))
 
+
+
+    transporter
         .sendMail({
             from: "imdbprojectteam@gmail.com",
             to: email,
@@ -120,9 +125,11 @@ router.post("/contact", (req, res) => {
             text: `Dear ${email}, thank you for contacting our Team. We shall adress you message as soon as possible.`,
             html: "<p>" + `Dear ${email}, thank you for contacting our Team. We shall adress you message as soon as possible.` + "</p>"
         })
-
         .then(() => res.status(200))
         .catch(err => res.status(500).json(err))
+
+
+
 
 })
 

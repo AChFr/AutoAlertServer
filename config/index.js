@@ -8,7 +8,7 @@ const logger = require("morgan");
 
 // ℹ️ Needed to accept from requests from 'the outside'. CORS stands for cross origin resource sharing
 // unless the request if from the same domain, by default express wont accept POST requests
-const cors = require("cors");
+// const cors = require("cors");
 
 // Middleware configuration
 module.exports = (app) => {

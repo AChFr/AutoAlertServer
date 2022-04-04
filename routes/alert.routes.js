@@ -100,8 +100,9 @@ router.post("/contact", (req, res) => {
     const { text, email } = req.body
 
     const devTeam = [
-        "chirkovarsni@gmail.com",
+        "chirkovarseni@gmail.com",
         // "saer_salva@hotmail.com",
+        "amorosoperezoso@gmail.com"
     ]
 
     transporter
@@ -123,7 +124,7 @@ router.post("/contact", (req, res) => {
             to: email,
             subject: `Thank you for contacting AutoAlert team!`,
             text: `Dear ${email}, thank you for contacting our Team. We shall adress you message as soon as possible.`,
-            html: "<p>" + `Dear ${email}, thank you for contacting our Team. We shall adress you message as soon as possible.` + "</p>"
+            html: "<p>" + `Dear ${email}, thank you for contacting our Team. We shall address you message as soon as possible.` + "</p>"
         })
         .then(() => res.status(200))
         .catch(err => res.status(500).json(err))

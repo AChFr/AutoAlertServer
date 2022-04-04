@@ -16,7 +16,7 @@ const mailUser = (address) => {
 
 
 
-var job = new CronJob('00 * * * *', () => {
+var job = new CronJob('00-55/5 * * * *', () => {
     let mail = "amorosoperezoso@gmail.com"
     counter++
     mailUser(mail)

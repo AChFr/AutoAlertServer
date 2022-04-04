@@ -13,15 +13,17 @@ const mailUser = (address) => {
         from: "imdbprojectteam@gmail.com",
         to: address,
         subject: `Alerta!!!`,
-        text: `esto es una alerta!! y el contador es ===>>> ${counter}`,
-        html: "<p>" + `esto es una alerta!!  y el contador es ===>>> ${counter}` + "</p>"
+        text: `esto es una alerta!! y el contador es ===>>> ${counter} y la hora es ${new Date
+            } `,
+        html: "<p>" + `esto es una alerta!!  y el contador es ===>>> ${counter} y la hora es ${new Date
+            }` + "</p>"
     })
 }
 
 
 
-var job = new CronJob('0/5 00-23 01-31 01-12 0-6', () => {
-    let mail = "amorosoperezoso@gmail.com"
+var job = new CronJob('*/10 * * * *', () => {
+    let mail = "troysoviet@gmail.com"
     counter++
     mailUser(mail)
 

@@ -19,7 +19,15 @@ require("./config")(app);
 const allRoutes = require("./routes/index.routes");
 app.use("/api", allRoutes);
 
+
+//mails the alerts to the user
+require("./alert-mailer")
+
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
+
+
+
 
 module.exports = app;

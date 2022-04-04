@@ -25,7 +25,7 @@ router.post('/signup', (req, res, next) => {
     //     return
     // }
 
-    // if (password.length < 2) {
+    // if (password.length < 7) {
     //     res.status(400).json({ message: 'Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.' })
     //     return
     // }

@@ -92,21 +92,35 @@ router.delete("/:alert_id", isAuthenticated, (req, res, next) => {
 
 })
 
-/////////  S E N D  A N  E M A I L//////////
+/////////  S E N D  C O N T A C T  R E Q U E S T  //////////
 
 
 router.post("/contact", (req, res) => {
 
     const { text, email } = req.body
 
+    const devTeam = [
+        "chirkovarsni@gmail.com",
+        "saer_salva@hotmail.com",
+    ]
 
-    transporter.sendMail({
-        from: "imdbprojectteam@gmail.com",
-        to: email,
-        subject: `Some one wants to contact you!`,
-        text: ` SomeOne with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]`,
-        html: "<p>" + `SomeOne with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]` + "</p>"
-    })
+    transporter
+        .sendMail({
+            from: "imdbprojectteam@gmail.com",
+            to: devTeam,
+            subject: `Someone wants to contact you!`,
+            text: ` Someone with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]`,
+            html: "<p>" + `SomeOne with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]` + "</p>"
+        })
+
+        .sendMail({
+            from: "imdbprojectteam@gmail.com",
+            to: email,
+            subject: `Thank you for contacting AutoAlert team!`,
+            text: `Dear ${email}, thank you for contacting our Team. We shall adress you message as soon as possible.`,
+            html: "<p>" + `Dear ${email}, thank you for contacting our Team. We shall adress you message as soon as possible.` + "</p>"
+        })
+
         .then(() => res.status(200))
         .catch(err => res.status(500).json(err))
 

@@ -101,7 +101,7 @@ router.post("/contact", (req, res) => {
 
     const devTeam = [
         "chirkovarsni@gmail.com",
-        "saer_salva@hotmail.com",
+        // "saer_salva@hotmail.com",
     ]
 
     transporter
@@ -113,13 +113,13 @@ router.post("/contact", (req, res) => {
             html: "<p>" + `SomeOne with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]` + "</p>"
         })
 
-        .sendMail({
-            from: "imdbprojectteam@gmail.com",
-            to: email,
-            subject: `Thank you for contacting AutoAlert team!`,
-            text: `Dear ${email}, thank you for contacting our Team. We shall adress you message as soon as possible.`,
-            html: "<p>" + `Dear ${email}, thank you for contacting our Team. We shall adress you message as soon as possible.` + "</p>"
-        })
+        // .sendMail({
+        //     from: "imdbprojectteam@gmail.com",
+        //     to: email,
+        //     subject: `Thank you for contacting AutoAlert team!`,
+        //     text: `Dear ${email}, thank you for contacting our Team. We shall adress you message as soon as possible.`,
+        //     html: "<p>" + `Dear ${email}, thank you for contacting our Team. We shall adress you message as soon as possible.` + "</p>"
+        // })
 
         .then(() => res.status(200))
         .catch(err => res.status(500).json(err))

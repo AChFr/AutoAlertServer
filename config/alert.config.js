@@ -10,7 +10,7 @@ const mailUser = (address) => {
         to: address,
         subject: `Alerta!!!`,
         text: `esto es una alerta!! y el contador es ===>>> ${counter}`,
-        html: "<p>" + `esto es una alerta!!` + "</p>"
+        html: "<p>" + `esto es una alerta!!  y el contador es ===>>> ${counter}` + "</p>"
     })
 }
 

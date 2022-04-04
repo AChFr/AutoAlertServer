@@ -1,15 +1,13 @@
 const CronJob = require('cron').CronJob
 const transporter = require("./transporter.config")
 
-
-
 let counter = 0
 
 
-const mailUser = (mail) => {
+const mailUser = (address) => {
     transporter.sendMail({
         from: "imdbprojectteam@gmail.com",
-        to: mail,
+        to: address,
         subject: `Alerta!!!`,
         text: `esto es una alerta!! y el contador es ===>>> ${counter}`,
         html: "<p>" + `esto es una alerta!!` + "</p>"
@@ -18,11 +16,11 @@ const mailUser = (mail) => {
 
 
 
-var job = new CronJob('15 * * * *', () => {
+var job = new CronJob('00 * * * *', () => {
+    let mail = "amorosoperezoso@gmail.com"
     counter++
-    mailUser("amorosoperezoso@gmail.com")
+    mailUser(mail)
 
-}, null, true, 'America/Los_Angeles');
+}, null, true, 'America/Los_Angeles')
+
 job.start();
-
-

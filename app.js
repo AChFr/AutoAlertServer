@@ -21,7 +21,7 @@ app.use("/api", allRoutes);
 
 
 //mails the alerts to the user
-require("./alert-mailer")
+require("./config/alert.config")
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes

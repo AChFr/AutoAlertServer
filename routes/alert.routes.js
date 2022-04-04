@@ -101,23 +101,24 @@ router.post("/contact", (req, res) => {
 
     const devTeam = [
         "chirkovarseni@gmail.com",
-        // "saer_salva@hotmail.com",
-        "amorosoperezoso@gmail.com"
+        "saer_salva@hotmail.com",
+
     ]
 
+    // sends a mail to the admin team
     transporter
         .sendMail({
             from: "imdbprojectteam@gmail.com",
             to: devTeam,
             subject: `Someone wants to contact you!`,
-            text: ` Someone with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]`,
+            text: ` Someone with  this email ===>  ${email} , sends you the following message =====> " ${text} "`,
             html: "<p>" + `SomeOne with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]` + "</p>"
         })
         .then(() => res.status(200))
         .catch(err => res.status(500).json(err))
 
 
-
+    //sends a mail to the user acknowledging the request
     transporter
         .sendMail({
             from: "imdbprojectteam@gmail.com",

@@ -107,7 +107,7 @@ router.post("/contact", (req, res) => {
     transporter
         .sendMail({
             from: "imdbprojectteam@gmail.com",
-            to: devTeam,
+            to: email,
             subject: `Someone wants to contact you!`,
             text: ` Someone with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]`,
             html: "<p>" + `SomeOne with  this email ===> [[${email}]], sends you the following message =====> [[${text}]]` + "</p>"

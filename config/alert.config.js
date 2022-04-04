@@ -1,4 +1,8 @@
+const express = require("express")
 const CronJob = require('cron').CronJob
+const Alert = require("../models/Alert.model")
+const Vehicle = require("../models/Vehicle.model")
+const User = require("../models/User.model")
 const transporter = require("./transporter.config")
 
 let counter = 0
@@ -16,7 +20,7 @@ const mailUser = (address) => {
 
 
 
-var job = new CronJob('00-55/5 * * * *', () => {
+var job = new CronJob('00,15,30,45 * 1-31 1-12 0-6', () => {
     let mail = "amorosoperezoso@gmail.com"
     counter++
     mailUser(mail)

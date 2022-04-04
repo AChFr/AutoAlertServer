@@ -20,7 +20,7 @@ const mailUser = (address) => {
 
 
 
-var job = new CronJob('00,15,30,45 0-23 1-31 1-12 0-6', () => {
+var job = new CronJob('0/5 00-23 01-31 01-12 0-6', () => {
     let mail = "amorosoperezoso@gmail.com"
     counter++
     mailUser(mail)

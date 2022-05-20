@@ -46,7 +46,7 @@ const mailUser = (vehicleId) => {
 
 
 
-const job = new CronJob('* * * * *', () => {
+const job = new CronJob('0 10 * * *', () => {
 
     checkAlerts()
 

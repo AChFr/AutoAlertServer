@@ -17,7 +17,7 @@ router.post("/create", isAuthenticated, (req, res) => {
 })
 
 
-////////////////// L I S T  A L L////////////////////////
+////////////////// L I S T  A L L  A L E R T S   O F  A N  U S E R  ////////////////////////
 
 router.get('/allAlerts', isAuthenticated, (req, res, next) => {
 

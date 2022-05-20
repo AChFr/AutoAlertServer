@@ -2,66 +2,55 @@ const express = require("express")
 const CronJob = require('cron').CronJob
 const Alert = require("../models/Alert.model")
 const Vehicle = require("../models/Vehicle.model")
-const User = require("../models/User.model")
+
 const transporter = require("./transporter.config")
 
+let nextAlert
+let car
+
+const checkAlerts = () => {
 
 
+    Alert
+        .find().populate("vehicle")
+        .then(result => {
+            let today = new Date
+            result.forEach(elm => {
+
+                if (elm.dueAt.toDateString() === today.toDateString()) {
+                    mailUser(elm.vehicle._id)
+                }
+                nextAlert = elm.name
+            })
+        })
+}
 
 
-const mailUser = (address) => {
-    transporter.sendMail({
-        from: "imdbprojectteam@gmail.com",
-        to: address,
-        subject: `Alerta!!!`,
-        text: `esto es una alerta!! y el contador es ===>>> y la hora es ${new Date} `,
-        html: "<p>" + `esto es una alerta!!  y el contador es ===>>> y la hora es ${new Date}` + "</p>"
-    })
+const mailUser = (vehicleId) => {
+    Vehicle
+        .findOne(vehicleId).populate("owner")
+        .then(result => {
+
+            car = result.name
+
+            transporter.sendMail({
+                from: "imdbprojectteam@gmail.com",
+                to: result.owner.email,
+                subject: `You have an impending ${nextAlert}!!`,
+                text: `This is an email regarding your ${car}.You have an impending  ${nextAlert} due today! Dont forget to do it!`,
+                html: "<p>" + `This is an email regarding your ${car}. You have an impending ${nextAlert} due today! Dnt forget to do it!` + "</p>"
+            })
+        })
+
 }
 
 
 
-// let launchTime = new Date()
+const job = new CronJob('* * * * *', () => {
 
-// setInterval(() => {
-//     let currentTime = new Date()
-//     let count = +currentTime - +launchTime
-//     console.log(count)
-// }, 1000)
+    checkAlerts()
+
+}, null, true, 'America/Los_Angeles')
 
 
-let minutes = 0
-let counter = 0
-
-console.log(" l a u n c h  t i m e " + new Date())
-console.log(" m i n u t e s " + minutes)
-console.log(" c o u n t e r " + counter)
-setInterval(() => {
-    counter++
-    if (counter === 60) {
-        minutes++
-        console.log(" m i n u t e s " + minutes)
-        counter = 0
-    }
-
-    if (minutes >= 30) {
-        mailUser("amorosoperezoso@gmail.com")
-        console.log(" m a i l e d   a t  " + new Date())
-        minutes = 0
-        console.log("now is " + new Date())
-    }
-}, 1000)
-
-
-//the proper way to do it is this, but since heroku has its own "CRON", you have to pay extra to be able to do this. 
-// so I did it the "ugly" way. but its fee!!! ¯\_(ツ)_/¯
-
-
-// var job = new CronJob('*/10 * * * *', () => {
-//     let mail = "troysoviet@gmail.com"
-//     counter++
-//     mailUser(mail)
-
-// }, null, true, 'America/Los_Angeles')
-
-// job.start();
+job.start();
